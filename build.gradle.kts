@@ -49,4 +49,7 @@ dependencies {
     // SLF4J Logger
     implementation("io.insert-koin:koin-logger-slf4j:$koin_ktor")
 
+    implementation("io.projectreactor:reactor-core:3.5.0") // Adjust version as needed
+
+
 }
