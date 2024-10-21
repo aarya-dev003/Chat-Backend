@@ -28,21 +28,43 @@ class RoomController  (
         )
     }
 
+//    suspend fun sendMessage(
+//        senderUsername: String,
+//        message: String
+//    ){
+//        members.values.forEach{member->
+//            val messageEntity = Message(
+//                text = message,
+//                username = senderUsername,
+//                timestamp = System.currentTimeMillis()
+//            )
+//            messageDataSource.insertMessage(messageEntity)
+//            val parsedMessage = Json.encodeToString(messageEntity)
+//            member.socket.send(Frame.Text(parsedMessage))
+//        }
+//    }
+
     suspend fun sendMessage(
         senderUsername: String,
         message: String
-    ){
-        members.values.forEach{member->
-            val messageEntity = Message(
-                text = message,
-                username = member.username,
-                timestamp = System.currentTimeMillis()
-            )
-            messageDataSource.insertMessage(messageEntity)
+    ) {
+        // Create the message entity with the sender's username
+        val messageEntity = Message(
+            text = message,
+            username = senderUsername,  // Keep the sender's username
+            timestamp = System.currentTimeMillis()
+        )
+
+        // Insert the message in the database (only once, with the correct sender)
+        messageDataSource.insertMessage(messageEntity)
+
+        // Broadcast the message to all connected members
+        members.values.forEach { member ->
             val parsedMessage = Json.encodeToString(messageEntity)
             member.socket.send(Frame.Text(parsedMessage))
         }
     }
+
 
     suspend fun getAllMessages(): List<Message> {
         return messageDataSource.getAllMessages()

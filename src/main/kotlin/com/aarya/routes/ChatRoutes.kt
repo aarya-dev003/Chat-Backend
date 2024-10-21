@@ -15,7 +15,7 @@ import kotlinx.coroutines.channels.consumeEach
 fun Route.chatSocket(
     roomController: RoomController
 ){
-    webSocket ("/chat-socket" ){
+    webSocket ("/chat" ){
         val session= call.sessions.get<ChatSession>()
         if(session == null){
             close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session"))

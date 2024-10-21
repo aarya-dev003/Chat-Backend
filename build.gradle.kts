@@ -50,6 +50,7 @@ dependencies {
     implementation("io.insert-koin:koin-logger-slf4j:$koin_ktor")
 
     implementation("io.projectreactor:reactor-core:3.5.0") // Adjust version as needed
-
+    //dot env
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
 }
