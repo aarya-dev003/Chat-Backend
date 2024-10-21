@@ -26,7 +26,7 @@ RUN dos2unix gradlew && \
 COPY build/libs/*.jar /run/server.jar
 
 # Expose the port
-EXPOSE 8080
+EXPOSE 8082
 
 # Define the command to run your application
 CMD ["java", "-jar", "/run/server.jar"]
